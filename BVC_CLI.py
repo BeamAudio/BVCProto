@@ -38,8 +38,8 @@ def cmd_encode(args):
     if quantize:
         config['LAR_BITS'] = args.bits
         
-    print(f"Encoding with BVC (fs={fs}, quantize={quantize}, lpc={args.lpc})...")
-    codec = BVC_GLPC(fs, quantize=quantize, lpc_order=args.lpc, quantizer_config=config)
+    print(f"Encoding with BVC (fs={fs}, quantize={quantize}, lpc={args.lpc}, max_merge={args.max_merge}, num_freqs={args.num_freqs})...")
+    codec = BVC_GLPC(fs, quantize=quantize, lpc_order=args.lpc, quantizer_config=config, max_merge=args.max_merge, num_freqs=args.num_freqs)
     
     frames = codec.process(audio)
     
@@ -68,8 +68,12 @@ def cmd_decode(args):
     print(f"Decoding {len(frames)} frames...")
     audio = codec.decode(frames)
     
+    print(f"Decoded audio length: {len(audio)} samples ({len(audio)/codec.fs:.3f} seconds)")
+    audio_int16 = float_to_int16(audio)
+    print(f"After int16 conversion: {len(audio_int16)} samples")
+    
     print(f"Saving to {output_path}...")
-    wavfile.write(output_path, codec.fs, float_to_int16(audio))
+    wavfile.write(output_path, codec.fs, audio_int16)
     print("Done!")
 
 def main():
@@ -77,16 +81,18 @@ def main():
     subparsers = parser.add_subparsers(dest='command', help='Command to execute')
     
     # Encode Command
-    parser_encode = subparsers.add_parser('encode', help='Encode WAV to RBVC')
+    parser_encode = subparsers.add_parser('encode', help='Encode WAV to BVC')
     parser_encode.add_argument('input', help='Input WAV file')
-    parser_encode.add_argument('output', help='Output RBVC file')
-    parser_encode.add_argument('--bits', type=int, default=10, help='Quantization bits for LAR (default: 10)')
+    parser_encode.add_argument('output', help='Output BVC file')
+    parser_encode.add_argument('bits', nargs='?', type=int, default=10, help='Quantization bits for LAR (default: 10)')
+    parser_encode.add_argument('max_merge', nargs='?', type=int, default=32, help='Maximum number of frames to merge (default: 32)')
+    parser_encode.add_argument('num_freqs', nargs='?', type=int, default=32, help='Number of frequencies (num_freqs) (default: 32)')
     parser_encode.add_argument('--lpc', type=int, default=16, help='LPC Order (default: 16)')
     parser_encode.add_argument('--lossless', action='store_true', help='Disable quantization (Lossless mode)')
     
     # Decode Command
-    parser_decode = subparsers.add_parser('decode', help='Decode RBVC to WAV')
-    parser_decode.add_argument('input', help='Input RBVC file')
+    parser_decode = subparsers.add_parser('decode', help='Decode BVC to WAV')
+    parser_decode.add_argument('input', help='Input BVC file')
     parser_decode.add_argument('output', help='Output WAV file')
     
     args = parser.parse_args()
