@@ -280,10 +280,12 @@ def _mp_worker_batch(tasks):
             continue
 
         res_energy = np.sum(masked_residual**2)
-        threshold = res_energy * 0.05 # Target 95% (Perceptual/Low Bitrate)
+        # Threshold relaxed to 0.15 (85% energy preservation) for speed optimization
+        # Pre-emphasis ensures this energy loss is not just high-freq loss
+        threshold = res_energy * 0.15
         
-        # Atoms allowance: Reduced for bitrate
-        max_atoms = 32 if mode == MODE_UNVOICED else (20 * merge_count)
+        # Atoms allowance: Reduced for bitrate/speed
+        max_atoms = 16 if mode == MODE_UNVOICED else (10 * merge_count)
         
         indices, coeffs = _mp_fast_loop(
             masked_residual.astype(np.float32), D, G, max_atoms, threshold
@@ -306,7 +308,7 @@ class EncodedFrames(list):
         self.original_length = original_length
 
 class BVC_GLPC:
-    def __init__(self, fs=44100, quantize=False, lpc_order=16, quantizer_config=None, max_merge=64, num_freqs=128):
+    def __init__(self, fs=44100, quantize=False, lpc_order=16, quantizer_config=None, max_merge=64, num_freqs=64):
         self.fs = fs
         self.base_N = 256
         self.max_merge = max_merge
@@ -343,6 +345,10 @@ class BVC_GLPC:
 
     def process(self, sig):
         sig = sig.astype(np.float32)
+        
+        # Pre-emphasis (boost highs for better LPC/MP modeling)
+        sig = np.append(sig[0], sig[1:] - 0.97 * sig[:-1])
+        
         N = self.base_N
         
         pad_len = (N - (len(sig) % N)) % N
@@ -640,6 +646,10 @@ class BVC_GLPC:
             current_pos += core_len
             
         output = np.concatenate(output_audio)
+        
+        # De-emphasis
+        output = signal.lfilter([1], [1, -0.97], output)
+        
         if hasattr(encoded_frames, 'original_length') and encoded_frames.original_length:
             if encoded_frames.original_length < len(output):
                 output = output[:encoded_frames.original_length]
