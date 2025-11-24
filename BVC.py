@@ -280,11 +280,11 @@ def _mp_worker_batch(tasks):
             continue
 
         res_energy = np.sum(masked_residual**2)
-        # Threshold relaxed to 0.15 (85% energy preservation) for speed optimization
+        # Threshold relaxed to 0.05 (95% energy preservation)
         # Pre-emphasis ensures this energy loss is not just high-freq loss
-        threshold = res_energy * 0.15
+        threshold = res_energy * 0.05 
         
-        # Atoms allowance: Reduced for bitrate/speed
+        # Atoms allowance: keeping for speed
         max_atoms = 16 if mode == MODE_UNVOICED else (10 * merge_count)
         
         indices, coeffs = _mp_fast_loop(
@@ -308,7 +308,7 @@ class EncodedFrames(list):
         self.original_length = original_length
 
 class BVC_GLPC:
-    def __init__(self, fs=44100, quantize=False, lpc_order=16, quantizer_config=None, max_merge=64, num_freqs=64):
+    def __init__(self, fs=44100, quantize=False, lpc_order=16, quantizer_config=None, max_merge=64, num_freqs=256):
         self.fs = fs
         self.base_N = 256
         self.max_merge = max_merge

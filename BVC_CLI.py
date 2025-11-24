@@ -86,7 +86,7 @@ def main():
     parser_encode.add_argument('output', help='Output BVC file')
     parser_encode.add_argument('bits', nargs='?', type=int, default=10, help='Quantization bits for LAR (default: 10)')
     parser_encode.add_argument('max_merge', nargs='?', type=int, default=32, help='Maximum number of frames to merge (default: 32)')
-    parser_encode.add_argument('num_freqs', nargs='?', type=int, default=64, help='Number of frequencies (num_freqs) (default: 64)')
+    parser_encode.add_argument('num_freqs', nargs='?', type=int, default=256, help='Number of frequencies (num_freqs) (default: 256)')
     parser_encode.add_argument('--lpc', type=int, default=16, help='LPC Order (default: 16)')
     parser_encode.add_argument('--lossless', action='store_true', help='Disable quantization (Lossless mode)')
     
