@@ -232,6 +232,56 @@ class BVCInspector:
         output_file = f"{base}_analysis.png"
         plt.savefig(output_file)
         print(f"Saved analysis plot to: {output_file}")
+        plt.close()
+
+        # --- New Performance Plots ---
+        plt.figure(figsize=(12, 8))
+        
+        # 1. Bitrate Histogram
+        plt.subplot(2, 2, 1)
+        plt.hist(bitrate_list, bins=20, color='skyblue', edgecolor='black')
+        plt.title('Bitrate Distribution')
+        plt.xlabel('kbps')
+        plt.ylabel('Count')
+        plt.grid(True, alpha=0.3)
+
+        # 2. Frame Size Histogram
+        plt.subplot(2, 2, 2)
+        plt.hist(merges, bins=np.arange(1, 66)-0.5, color='lightgreen', edgecolor='black')
+        plt.title('Frame Size Distribution')
+        plt.xlabel('Merge Count')
+        plt.ylabel('Count')
+        plt.grid(True, alpha=0.3)
+
+        # 3. Atoms vs Energy Scatter
+        plt.subplot(2, 2, 3)
+        # Parse energy strings back to floats? Or use atoms
+        # energy_str is "Q=..." or float.
+        # Let's assume correlation with atoms is enough
+        plt.scatter(merges, atoms, alpha=0.5, c=modes, cmap='viridis')
+        plt.title('Atoms vs Frame Size (Color=Mode)')
+        plt.xlabel('Merge Count')
+        plt.ylabel('Atom Count')
+        plt.grid(True, alpha=0.3)
+        
+        # 4. Mode Pie Chart
+        plt.subplot(2, 2, 4)
+        # Recalculate counts for safety
+        labels = ['Silence', 'Voiced', 'Unvoiced']
+        sizes = [modes.count(0), modes.count(1), modes.count(2)]
+        # Filter zero sizes
+        pie_labels = [l for l, s in zip(labels, sizes) if s > 0]
+        pie_sizes = [s for s in sizes if s > 0]
+        
+        if pie_sizes:
+            plt.pie(pie_sizes, labels=pie_labels, autopct='%1.1f%%', startangle=140, colors=['lightgray', 'lightgreen', 'salmon'])
+            plt.title('Mode Distribution')
+        
+        plt.tight_layout()
+        output_file_perf = f"{base}_performance.png"
+        plt.savefig(output_file_perf)
+        print(f"Saved performance plots to: {output_file_perf}")
+        plt.close()
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:

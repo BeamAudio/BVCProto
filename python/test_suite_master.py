@@ -1,10 +1,13 @@
+import sys
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 import scipy.io.wavfile
-from BVC import BVC_GLPC
-import os
 import shutil
+
+# Import from local package
+from bvc.BVC import BVC_GLPC
 
 # --- IEEE Plotting Style ---
 plt.rcParams.update({
@@ -297,7 +300,7 @@ class MasterTestSuite:
         print("Running Real-World Visualization (Waveform & Spectrogram)...")
         
         # Try to load real file, else synthetic
-        filename = "Recording63.wav"
+        filename = "samples/Recording63.wav"
         if os.path.exists(filename):
             print(f"  Using real file: {filename}")
             fs, sig_int16 = scipy.io.wavfile.read(filename)

@@ -69,15 +69,16 @@ def _rc_to_lpc(k):
         ki = k[i]
         a_prev = a.copy()
         for j in range(i + 1):
-            a[j + 1] = a_prev[j + 1] + ki * a_prev[i - j]
     return a
+
+
 
 @jit(nopython=True, fastmath=True, cache=True)
 def _mp_fast_loop(work, D, G, n_atoms, threshold):
     if D.shape[1] == 0:
         return np.zeros(0, dtype=np.int32), np.zeros(0, dtype=np.float32)
 
-    correlations = D.T @ work 
+    correlations = np.ascontiguousarray(D.T) @ work 
     indices = np.zeros(n_atoms, dtype=np.int32)
     coeffs = np.zeros(n_atoms, dtype=np.float32)
     current_energy = np.sum(work**2)
@@ -323,7 +324,7 @@ class BVC_GLPC:
         self.lag_window = self.gamma ** np.arange(self.lpc_order + 1)
         
         if self.quantize:
-            from BVCQuantizer import BVCQuantizer
+            from .BVCQuantizer import BVCQuantizer
             self.quantizer = BVCQuantizer(config=quantizer_config)
         else:
             self.quantizer = None
@@ -546,7 +547,7 @@ class BVC_GLPC:
             self.fs = fs
             self.quantize = (version == 1)
             if self.quantize and self.quantizer is None:
-                from BVCQuantizer import BVCQuantizer
+                from .BVCQuantizer import BVCQuantizer
                 self.quantizer = BVCQuantizer()
             
             frames = []

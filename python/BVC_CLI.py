@@ -1,9 +1,11 @@
+import sys
+import os
 import argparse
 import numpy as np
 from scipy.io import wavfile
-from BVC import BVC_GLPC
-import os
-import sys
+
+# Import from local package
+from bvc.BVC import BVC_GLPC
 
 def ensure_mono(sig):
     if len(sig.shape) > 1:

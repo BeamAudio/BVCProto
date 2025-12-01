@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.env
+venv/
+env/
+
+# C++ / CMake
+build/
+build_cli/
+out/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.cmake
+CMakeCache.txt
+CMakeFiles/
+*.dir/
+*.lib
+*.exe
+*.dll
+*.obj
+*.pdb
+*.ilk
+*.exp
+*.iobj
+*.ipdb
+*.tlog
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+
+# Numba
+*.nbc
+*.nbi
+
+# Test / Output Artifacts
+results/
+artifacts/
+*.bvc
+*.wav
+*.png
+!samples/*.wav
+!samples/*.bvc
+
+# OS
+.DS_Store
+Thumbs.db
