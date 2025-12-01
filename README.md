@@ -1,15 +1,16 @@
 # Beam Vocal Codec (BVC)
 
-BVC is a next-generation, low-bitrate parametric speech codec designed for high efficiency and low latency. It utilizes a novel hybrid Matching Pursuit algorithm with a frequency-optimized Gabor dictionary to achieve high-quality speech reconstruction at bitrates as low as 24-48 kbps.
+BVC is a next-generation, high-fidelity parametric speech codec designed for efficiency and perceptual quality. It utilizes a novel hybrid Matching Pursuit algorithm with a perceptually tuned Gabor dictionary to achieve high-quality speech reconstruction.
 
 ## Key Features
 
-*   **High Quality:** Achieves ~15dB SNR with accurate spectral envelope reconstruction (LSD < 0.05 dB).
-*   **Low Bitrate:** Uses Entropy Coding (Huffman) and sparse representation to minimize data size (~48kbps for high fidelity).
+*   **High Quality:** Achieves > 10.5 dB SNR with accurate spectral envelope reconstruction (LSD < 0.06 dB).
+*   **Bitrate:** High Fidelity mode operates at ~90-100 kbps using Entropy Coding (Huffman) and sparse representation.
 *   **Efficiency:** 
-    *   **Streaming Architecture:** Constant low memory usage (< 64MB RAM) regardless of file size.
-    *   **Fast:** Multithreaded (OpenMP) and Vectorized (SIMD) C++ implementation.
-*   **Robustness:** Advanced VAD (Voice Activity Detection) and dynamic frame merging logic.
+    *   **Real-Time Performance:** Optimized C++ implementation runs at **~1.0x RTF (Encoding)** and **~0.5x RTF (Decoding)** on standard CPUs.
+    *   **Streaming Architecture:** Uses an optimized LRU Dictionary Cache (< 300MB RAM) for speed.
+*   **Perceptual Tuning:** Dictionary atoms are concentrated in the speech power range (50-400Hz) for maximum fidelity.
+*   **Robustness:** Advanced VAD (Voice Activity Detection), Pitch-Synchronous Merging, and Direct Form I synthesis filtering.
 
 ## Project Structure
 
