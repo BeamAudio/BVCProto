@@ -1,0 +1,41 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{3}{section.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}The Speech Coding Landscape}{3}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Evolution of Speech Coding Paradigms}{3}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}The BVC Contribution: Sparse Atomic Decomposition}{3}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Mathematical Framework}{4}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}The Source-Filter Model: A Dual Perspective}{4}{subsection.2.1}\protected@file@percent }
+\newlabel{sec:source_filter}{{2.1}{4}{The Source-Filter Model: A Dual Perspective}{subsection.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The Source-Filter Model of Speech Production.}}{4}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:source_filter_model}{{1}{4}{The Source-Filter Model of Speech Production}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Linear Predictive Coding (LPC)}{4}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Levinson-Durbin Recursion}{5}{subsubsection.2.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Quantization of Predictor Coefficients}{5}{subsubsection.2.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Sparse Atomic Decomposition via Matching Pursuit}{5}{subsection.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Overcomplete Dictionaries and Sparse Representation}{5}{subsubsection.2.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Matching Pursuit (MP) Algorithm}{6}{subsubsection.2.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Dictionary Design & Psychoacoustics}{6}{section.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Gabor Atoms: Optimal Time-Frequency Primitives}{6}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Perceptual Frequency Tuning}{7}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Impulse Atoms for Transient Modeling}{7}{subsection.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}System Architecture: Pipeline Design}{8}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}The Encoder Pipeline}{8}{subsection.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The Encoder Threading Model: A Producer-Consumer Pipeline.}}{9}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:encoder_pipeline}{{2}{9}{The Encoder Threading Model: A Producer-Consumer Pipeline}{figure.caption.2}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Main Thread (Producer)}{9}{subsubsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Worker Threads (Matching Pursuit)}{10}{subsubsection.4.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Writer Thread (Consumer)}{10}{subsubsection.4.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}The Decoder Pipeline}{11}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Decoder Threading Model: Parallel Excitation Reconstruction.}}{11}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:decoder_pipeline}{{3}{11}{Decoder Threading Model: Parallel Excitation Reconstruction}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Parsing (Sequential)}{12}{subsubsection.4.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Parallel Excitation Reconstruction}{12}{subsubsection.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Sequential Synthesis}{12}{subsubsection.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Detailed Implementation Aspects}{12}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Memory Optimization Strategies}{12}{subsection.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.1.1}Flattened Dictionary Layout}{12}{subsubsection.5.1.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces DictionaryEntry Structure}}{12}{lstlisting.1}\protected@file@percent }
